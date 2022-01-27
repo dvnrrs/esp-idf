@@ -974,6 +974,29 @@ UBaseType_t uxQueueSpacesAvailable( const QueueHandle_t xQueue ) PRIVILEGED_FUNC
  * @cond !DOC_EXCLUDE_HEADER_SECTION
  * queue. h
  * @code{c}
+ * UBaseType_t uxQueueSpacesAvailableFromISR( const QueueHandle_t xQueue );
+ * @endcode
+ * @endcond
+ *
+ * Return the number of free spaces available in a queue.  This is equal to the
+ * number of items that can be sent to the queue before the queue becomes full
+ * if no items are removed.
+ *
+ * @param xQueue A handle to the queue being queried.
+ *
+ * @return The number of spaces available in the queue.
+ *
+ * @cond !DOC_SINGLE_GROUP
+ * \defgroup uxQueueMessagesWaiting uxQueueMessagesWaiting
+ * @endcond
+ * \ingroup QueueManagement
+ */
+UBaseType_t uxQueueSpacesAvailableFromISR( const QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
+
+/**
+ * @cond !DOC_EXCLUDE_HEADER_SECTION
+ * queue. h
+ * @code{c}
  * void vQueueDelete( QueueHandle_t xQueue );
  * @endcode
  * @endcond

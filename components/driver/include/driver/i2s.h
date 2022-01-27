@@ -143,6 +143,7 @@ typedef enum {
 typedef struct {
     i2s_event_type_t    type;   /*!< I2S event type */
     size_t              size;   /*!< I2S data size for I2S_DATA event*/
+    size_t              queued; /*!< Number of queued chunks */
 } i2s_event_t;
 
 /**

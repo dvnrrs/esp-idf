@@ -458,8 +458,9 @@ static void IRAM_ATTR i2s_intr_handler_default(void *arg)
     if ((status & I2S_INTR_OUT_EOF) && p_i2s->tx) {
         i2s_hal_get_out_eof_des_addr(&(p_i2s->hal), &finish_desc);
         i2s_event.size = ((lldesc_t *)finish_desc)->size;
+        i2s_event.queued = uxQueueSpacesAvailableFromISR(p_i2s->tx->queue);
         // All buffers are empty. This means we have an underflow on our hands.
-        if (xQueueIsQueueFullFromISR(p_i2s->tx->queue)) {
+        if (!i2s_event.queued) {
             xQueueReceiveFromISR(p_i2s->tx->queue, &dummy, &tmp);
             need_awoke |= tmp;
             // See if tx descriptor needs to be auto cleared:
