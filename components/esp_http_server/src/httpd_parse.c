@@ -807,7 +807,7 @@ esp_err_t httpd_req_delete(struct httpd_data *hd)
     struct httpd_req_aux *ra = r->aux;
 
     /* Finish off reading any pending/leftover data */
-    while (ra->remaining_len) {
+    while (!ra->sd->for_async_req && ra->remaining_len) {
         /* Any length small enough not to overload the stack, but large
          * enough to finish off the buffers fast */
         char dummy[CONFIG_HTTPD_PURGE_BUF_LEN];
